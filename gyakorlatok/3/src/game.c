@@ -137,3 +137,71 @@ void init_opengl(Game* game)
     glOrtho(0, game->width, game->height, 0, -200, 200);
     glViewport(0, 0, game->width, game->height);
 }
+
+int check_score() {
+	
+	int i;
+
+	//loop through player scores
+	for(i = 0; i < 2; i++) {
+	
+		//check if score is @ the score win limit
+		if (score[i] == 10 ) {
+		
+			//reset scores
+			score[0] = 0;
+			score[1] = 0;
+			
+			//return 1 if player 1 score @ limit
+			if (i == 0) {
+
+				return 1;	
+
+			//return 2 if player 2 score is @ limit
+			} else {
+				
+				return 2;
+			}
+		}
+	}
+	
+	//return 0 if no one has reached a score of 10 yet
+	return 0;
+}
+
+int check_collision(Ball a, Pad b) {
+
+	int left_a, left_b;
+	int right_a, right_b;
+	int top_a, top_b;
+	int bottom_a, bottom_b;
+
+	left_a = a.x;
+	right_a = a.x + a.w;
+	top_a = a.y;
+	bottom_a = a.y + a.h;
+
+	left_b = b.x;
+	right_b = b.x + b.w;
+	top_b = b.y;
+	bottom_b = b.y + b.h;
+	
+
+	if (left_a > right_b) {
+		return 0;
+	}
+
+	if (right_a < left_b) {
+		return 0;
+	}
+
+	if (top_a > bottom_b) {
+		return 0;
+	}
+
+	if (bottom_a < top_b) {
+		return 0;
+	}
+
+	return 1;
+}
