@@ -40,3 +40,9 @@ void render_ball(Ball* ball)
     glEnd();
     glPopMatrix();
 }
+
+void change_ball(int c) {
+   while((c = getch()) != EOF )
+      if(c == 49)   ball->radius -= 5;
+      if(c == 50)   ball->radius += 5;
+}
